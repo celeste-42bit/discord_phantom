@@ -1,22 +1,50 @@
+import logger
 import discord
 from discord.ext import commands
 
 
 intents = discord.Intents.default()
-intents.typing = False
-intents.presences = False
+intents.typing = True
+intents.presences = True
 intents.message_content = True
-intents.reactions = False
+intents.reactions = True
+
+follow = False   # Should the bot follow the chat? Overridden, if record is set to true
+record = True  # Should the bot record the chat?
+
+if record:
+    follow = True
         
-description = "The Phantom by 'The Phantasm Bot Projects'"
+description = 'The Phantom by "The Phantasm Bot Projects"'                                  # The bots 'about me'
+status = discord.Status.online                                                              # The bots status (The dot on the profile picture)
+activity = discord.Activity(type=discord.ActivityType.watching, name="over the Phantasm")   # The bots activity (The text under its name)
         
-bot = commands.Bot(intents = intents, description = description, command_prefix='/', debug_guild=1090933390007615551)
-        
+client = commands.Bot(
+    command_prefix='/',
+    intents = intents,
+    description = description,
+    status=status,
+    activity=activity,
+    case_insensitive=True
+    )
+
+@client.event
+async def on_ready():
+    print(f'I logged in as {client.user} (ID: {client.user.id}). At your service, mistress!')
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    
+    concat = f'At [{message.created_at}] [{message.author.name}] wrote: {message.content}'
+    
+    if follow:
+        print(concat)
+    if message.content.__contains__("/") or record:
+        logger.log(concat);
+    
+
 with open('.token', 'r') as tkn:
     token = str(tkn.read())
-bot.run(token)
-
-@bot.event
-async def on_ready():
-    await bot.change_presence(activity=discord.CustomActivity(name="Type /help"))
-    print(f'I logged in as {bot.user} (ID: {bot.user.id})')
+client.run(token)
