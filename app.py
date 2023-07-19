@@ -1,5 +1,4 @@
-import logger
-import discord
+import discord, logger, random
 from discord.ext import commands
 
 
@@ -9,13 +8,13 @@ intents.presences = True
 intents.message_content = True
 intents.reactions = True
 
-follow = False   # Should the bot follow the chat? Overridden, if record is set to true
-record = True  # Should the bot record the chat?
+follow = True   # Should the bot follow the chat? Overridden, if record is set to true
+record = False  # Should the bot record the chat?
 
 if record:
     follow = True
         
-description = 'The Phantom by "The Phantasm Bot Projects"'                                  # The bots 'about me'
+description = 'The Phantom by "The Phantasm Bot Projects"'                                  # The bots description (No idea, what it actually does)
 status = discord.Status.online                                                              # The bots status (The dot on the profile picture)
 activity = discord.Activity(type=discord.ActivityType.watching, name="over the Phantasm")   # The bots activity (The text under its name)
         
@@ -32,18 +31,38 @@ client = commands.Bot(
 async def on_ready():
     print(f'I logged in as {client.user} (ID: {client.user.id}). At your service, mistress!')
 
-@client.event
+'''Issue: This function blocks all commands from executing
+@client.event()
 async def on_message(message):
     if message.author == client.user:
         return
     
-    concat = f'At [{message.created_at}] [{message.author.name}] wrote: {message.content}'
+    concat = f'At [{message.created_at}] [{message.author.name}] wrote: {message.content}'  # This is a concat 🐈
     
     if follow:
         print(concat)
     if message.content.__contains__("/") or record:
         logger.log(concat);
-    
+'''
+
+@client.command(name='roll', brief='Roll the dice!', help='Usage: /roll <dice ammount> <hunger>')
+async def roll(ctx, num_dice, hunger):
+    dice = []
+    for i in range(int(num_dice)):
+        dice.append(roll_the_dice())
+    # print(dice)
+    await ctx.send(str(dice))
+
+def roll_the_dice():
+    roll = random.randint(1, 10)  # roll a d10
+    if roll == 1:
+        return 0  # Return total failure
+    elif roll == 10:
+        return 3  # Return critical success
+    elif roll > 5:
+        return 2  # Return success
+    else:
+        return 1  # Return failure
 
 with open('.token', 'r') as tkn:
     token = str(tkn.read())
