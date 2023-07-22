@@ -1,5 +1,8 @@
+# Log files
+*.log
+
 # Token files
-.token
+*.token
 token
 token.tk
 
