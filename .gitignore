@@ -7,18 +7,18 @@ intervention_helper.py
 chat_crawler.py
 anonymous_listener.py
 
-commons.yp
-database.yp
-tokens.yp
-# ------------------------------------------------------
-
 # Log files
 *.log
 
 # Token files
 *.token
 token
-token.tk
+
+# Databases
+commons.yp
+database.yp
+tokens.yp
+# ------------------------------------------------------
 
 # Environments
 .env
