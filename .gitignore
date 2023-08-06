@@ -1,3 +1,17 @@
+# don't push is what I said...! Safety relevant stuff, it's sourced from another repo!
+# ------------------------------------------------------
+mod_task_scheduler.py
+call_service.py
+intervention_service.py
+intervention_helper.py
+chat_crawler.py
+anonymous_listener.py
+
+commons.yp
+database.yp
+tokens.yp
+# ------------------------------------------------------
+
 # Log files
 *.log
 
