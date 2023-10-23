@@ -6,9 +6,10 @@ def log(message):
 
     # If the log file exceeds 10MB, delete it and create a new one
     if size >= 10000000000:  # size in bytes (100M sounds good?)
-        print('The log file was bigger then 10MB and has been deleted')
         os.remove('./logs/message.log')
+        print(f'The log file was bigger then {size} and has been deleted')
         create()
+        print('A new log file has been created')
     # Write the message to the log file
     with open('./logs/message.log', '+a', encoding='utf-8') as log:
         log.write(f'{message}\n')
