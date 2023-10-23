@@ -9,7 +9,7 @@
 
 ## Installation
 - A python is required for this to work. So get yourself a 3m long danger noodle 🐍 and some coffee, cuz this is gonna be wild!!!
-- No, seriously, `just pip install -r` the `requirements.txt` and run it with your python.
+- No, seriously, just `pip install -r` the `requirements.txt` and run it with your python.
 - What are you brabbling about "snakes can't run, they have no legs"... Shut up! Dat a fabulous snek! 🐍
 
 ## Upcoming features
