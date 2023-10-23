@@ -1,6 +1,7 @@
 import os, time
 
 def log(message):
+
     # Get the size of the log file in bytes
     size = os.path.getsize('./logs/message.log')
 
@@ -16,8 +17,10 @@ def log(message):
 
 def create():
     print('A new log file has been created')
-    with open('./logs/message.log', '+w', encoding='utf-8') as log:  # If writable file doesn't exist, create first, then write...
+    with open('./logs/message.log', '+a', encoding='utf-8') as log:  # If writable file doesn't exist, create first, then write...
         log.write(f'This log was created at {time.gmtime()}\n')
 
+if not os.path.exists('./logs'):
+    os.makedirs('./logs', mode=0o777)
 if not os.path.exists('./logs/message.log'):
     create()
