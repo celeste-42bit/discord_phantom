@@ -5,7 +5,7 @@ def log(message):
     size = os.path.getsize('./logs/message.log')
 
     # If the log file exceeds 10MB, delete it and create a new one
-    if size >= 10000000:  # 10MB in bytes
+    if size >= 10000000000:  # size in bytes (100M sounds good?)
         print('The log file was bigger then 10MB and has been deleted')
         os.remove('./logs/message.log')
         create()
